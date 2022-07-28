@@ -110,25 +110,28 @@ public class FileUtils {
         if (!Files.exists(README_PATH)) {
             Files.createFile(README_PATH);
         }
-        List<Images> imagesList = imgList.subList(0, 30);
-        writeFile(README_PATH, imagesList, null);
+        if(imgList!=null&&imgList.size()>0) {
+            List<Images> imagesList = imgList.subList(0, imgList.size()>31?30:imgList.size());
 
-        Files.write(README_PATH, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
-        // 归档
-        Files.write(README_PATH, "### 历史归档(History)：".getBytes(), StandardOpenOption.APPEND);
-        Files.write(README_PATH, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
-        List<String> dateList = imgList.stream()
-            .map(Images::getDate)
-            .map(date -> date.substring(0, 7))
-            .distinct()
-            .collect(Collectors.toList());
-        int i = 0;
-        for (String date : dateList) {
-            String link = String.format("[%s](https://github.com/onethingstudio/baidu-wallpaper/tree/main/picture/%s/) | ", date, date);
-            Files.write(README_PATH, link.getBytes(), StandardOpenOption.APPEND);
-            i++;
-            if (i % 8 == 0) {
-                Files.write(README_PATH, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
+            writeFile(README_PATH, imagesList, null);
+
+            Files.write(README_PATH, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
+            // 归档
+            Files.write(README_PATH, "### 历史归档(History)：".getBytes(), StandardOpenOption.APPEND);
+            Files.write(README_PATH, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
+            List<String> dateList = imgList.stream()
+                    .map(Images::getDate)
+                    .map(date -> date.substring(0, 7))
+                    .distinct()
+                    .collect(Collectors.toList());
+            int i = 0;
+            for (String date : dateList) {
+                String link = String.format("[%s](https://github.com/onethingstudio/baidu-wallpaper/tree/main/picture/%s/) | ", date, date);
+                Files.write(README_PATH, link.getBytes(), StandardOpenOption.APPEND);
+                i++;
+                if (i % 8 == 0) {
+                    Files.write(README_PATH, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
+                }
             }
         }
     }
