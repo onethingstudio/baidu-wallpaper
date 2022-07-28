@@ -63,7 +63,7 @@ public class FileUtils {
         if (!Files.exists(BING_PATH)) {
             Files.createFile(BING_PATH);
         }
-        Files.write(BING_PATH, "## Bing Wallpaper".getBytes());
+        Files.write(BING_PATH, "## Baidu Wallpaper".getBytes());
         Files.write(BING_PATH, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
         for (Images images : imgList) {
             Files.write(BING_PATH, images.formatMarkdown().getBytes(), StandardOpenOption.APPEND);
@@ -115,7 +115,7 @@ public class FileUtils {
 
         Files.write(README_PATH, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
         // 归档
-        Files.write(README_PATH, "### 历史归档：".getBytes(), StandardOpenOption.APPEND);
+        Files.write(README_PATH, "### 历史归档(History)：".getBytes(), StandardOpenOption.APPEND);
         Files.write(README_PATH, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
         List<String> dateList = imgList.stream()
             .map(Images::getDate)
@@ -124,7 +124,7 @@ public class FileUtils {
             .collect(Collectors.toList());
         int i = 0;
         for (String date : dateList) {
-            String link = String.format("[%s](https://github.com/niumoo/bing-wallpaper/tree/main/picture/%s/) | ", date, date);
+            String link = String.format("[%s](https://github.com/onethingstudio/baidu-wallpaper/tree/main/picture/%s/) | ", date, date);
             Files.write(README_PATH, link.getBytes(), StandardOpenOption.APPEND);
             i++;
             if (i % 8 == 0) {
@@ -167,9 +167,9 @@ public class FileUtils {
         if (!Files.exists(path)) {
             Files.createFile(path);
         }
-        String title = "## Bing Wallpaper";
+        String title = "## Baidu Wallpaper";
         if (name != null) {
-            title = "## Bing Wallpaper (" + name + ")";
+            title = "## Baidu Wallpaper (" + name + ")";
         }
         Files.write(path, title.getBytes());
         Files.write(path, System.lineSeparator().getBytes(), StandardOpenOption.APPEND);
